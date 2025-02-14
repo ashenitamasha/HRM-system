@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            transition: transform 0.3s ease;
+        }
+
+        .employee-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #0dc5b6;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+
+        nav {
+            background-color: #47919E;
+            color: white;
+            width: 250px;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Hidden by default for mobile/tablet */
+            height: 100%;
+            z-index: 1000;
+            transition: left 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        nav.drawer-open {
+            left: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin-top: 60px;
+        }
+
+        nav ul li {
+            margin: 15px 0;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #1d7a6f;
+        }
+
+        .back-button {
+            margin-top: auto;
+            padding: 10px 20px;
+            background-color: white;
+            color: #5AB397;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .profile-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .nav-button {
+            display: inline-block;
+            padding: 10px 70px;
+            color: white;
+            background-color: #47919E;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #0dc5b6;
+        }
+
+        /* Media Queries */
+
+        /* Mobile View */
+        @media (max-width: 576px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            body.drawer-open {
+                transform: translateX(250px);
+            }
+
+            nav ul {
+                margin-top: 20px;
+            }
+        }
+
+        /* Tablet View */
+        @media (min-width: 577px) and (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            body.drawer-open {
+                transform: translateX(250px);
+            }
+        }
+
+        /* Laptop and Larger Views */
+        @media (min-width: 769px) {
+            nav {
+                position: relative;
+                left: 0;
+                width: 100%;
+                flex-direction: row;
+                justify-content: space-around;
+            }
+
+            nav ul {
+                display: flex;
+                flex-direction: row;
+                margin-top: 0;
+            }
+
+            nav ul li {
+                margin: 0;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .back-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="employee-container">
+        <header>
+            <h1>Employee Panel</h1>
+            <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="view_profile.html" class="nav-button">View Profile</a></li>
+                <li><a href="attendance.html" class="nav-button">Attendance</a></li>
+                <li><a href="payroll.html" class="nav-button">Payroll</a></li>
+                <li><a href="index.html" class="nav-button">Logout</a></li>
+            </ul>
+            <a href="employee.html" class="back-button">Back</a>
+        </nav>
+        <main>
+            <div class="profile-dashboard">
+                <div class="card">
+                    <h2>Profile</h2>
+                    <p>Kamal Perera</p>
+                </div>
+                <div class="card">
+                    <h2>Attendance</h2>
+                    <p>95%</p>
+                </div>
+                <div class="card">
+                    <h2>Payroll</h2>
+                    <p>Rs. 70,000.00</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            const body = document.body;
+
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('drawer-open');
+                body.classList.toggle('drawer-open');
+            });
+        });
+    </script>
+</body>
+</html>

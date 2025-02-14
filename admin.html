@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+        }
+
+        .menu-toggle {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: none;
+        }
+
+        .admin-container {
+            display: flex;
+            flex: 1;
+        }
+
+        header {
+            background-color: #5AB397;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            flex-basis: 100%;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 24px;
+        }
+
+        nav {
+            background-color: #5AB397;
+            color: white;
+            width: 250px;
+            padding: 20px 10px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            left: -250px; /* Offscreen by default for mobile/tablet */
+            height: 100%;
+            z-index: 1000;
+            transition: left 0.3s ease;
+        }
+
+        nav.drawer-open {
+            left: 0; /* Slide in for mobile/tablet */
+        }
+
+        nav ul {
+            list-style: none;
+            padding-top: 60px;
+        }
+
+        nav ul li {
+            margin-bottom: 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #236963;
+        }
+
+        .back-button {
+            margin-top: auto;
+            padding: 10px 20px;
+            background-color: white;
+            color: #5AB397;
+            text-align: center;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px; /* Space for nav on laptops */
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive layout */
+
+        /* Mobile view */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .admin-container {
+                flex-direction: column;
+            }
+
+            nav {
+                width: 250px;
+                left: -250px; /* Drawer is hidden by default */
+            }
+
+            body.drawer-open {
+                transform: translateX(250px);
+            }
+
+            main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            nav ul li a {
+                font-size: 14px;
+            }
+
+            .back-button {
+                display: block; /* Show the back button for mobile/tablet */
+            }
+        }
+
+        /*Tablet view*/
+        @media (max-width: 576px) {
+            nav {
+                width: 200px;
+                left: -200px; 
+            }
+
+            body.drawer-open {
+                transform: translateX(200px);
+            }
+
+            .card h2 {
+                font-size: 14px;
+            }
+        }
+
+        /*Laptop / Larger view */
+
+        @media (min-width: 769px) {
+            nav {
+                left: 0; /* Fixed on left for laptops */
+                width: 250px;
+            }
+
+            body {
+                transform: none; /* No transformation for laptops */
+            }
+
+            main {
+                margin-left: 250px;
+            }
+
+            .back-button {
+                display: none; /* Ensure back button is hidden for laptops */
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <header>
+        <h1>Admin Panel</h1>
+        <button class="menu-toggle" aria-label="Toggle navigation menu">☰</button>
+    </header>
+    <div class="admin-container">
+        <nav>
+            <ul>
+                <li><a href="manage_employess.html">Manage Employees</a></li>
+                <li><a href="view_reports.html">View Reports</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+            <a href="admin.html" class="back-button">Back</a>
+        </nav>
+        <main>
+            <div class="dashboard">
+                <div class="card">
+                    <h2>Total Employees</h2>
+                    <p>125</p>
+                </div>
+                <div class="card">
+                    <h2>Pending Tasks</h2>
+                    <p>10</p>
+                </div>
+                <div class="card">
+                    <h2>Reports Reviewed</h2>
+                    <p>25</p>
+                </div>
+                <div class="card">
+                    <h2>New Requests</h2>
+                    <p>5</p>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('nav');
+            const body = document.body;
+
+            menuToggle.addEventListener('click', () => {
+                nav.classList.toggle('drawer-open');
+                body.classList.toggle('drawer-open');
+            });
+        });
+    </script>
+</body>
+</html>
